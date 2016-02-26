@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Openpay_Cards default payment configuration
+ * Openpay_Stores default payment configuration
  *
  * @category    Openpay
- * @package     Openpay_Cards
+ * @package     Openpay_Stores
  * @author      Federico Balderas
  * @copyright   Openpay (http://openpay.mx)
  * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
@@ -12,7 +12,7 @@
 -->
 <payment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Payment:etc/payment.xsd">
     <methods>
-        <method name="openpay_cards">
+        <method name="openpay_stores">
             <allow_multiple_address>1</allow_multiple_address>
         </method>
     </methods>

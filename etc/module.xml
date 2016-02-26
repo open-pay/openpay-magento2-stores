@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Openpay_Cards module dependency
+ * Openpay_Stores module dependency
  *
  * @category    Openpay
- * @package     Openpay_Cards
+ * @package     Openpay_Stores
  * @author      Federico Balderas
  * @copyright   Openpay (http://openpay.mx)
  * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Openpay_Cards" setup_version="1.0.0">
+    <module name="Openpay_Stores" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Sales" />
             <module name="Magento_Checkout" />            

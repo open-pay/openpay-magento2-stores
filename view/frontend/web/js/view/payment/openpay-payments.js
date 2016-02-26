@@ -1,8 +1,8 @@
 /**
- * Openpay_Cards Magento JS component
+ * Openpay_Stores Magento JS component
  *
  * @category    Openpay
- * @package     Openpay_Cards
+ * @package     Openpay_Stores
  * @author      Federico Balderas
  * @copyright   Openpay (http://openpay.mx)
  * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
@@ -21,8 +21,8 @@ define(
         'use strict';
         rendererList.push(            
             {
-                type: 'openpay_cards',
-                component: 'Openpay_Cards/js/view/payment/method-renderer/cc-form'
+                type: 'openpay_stores',
+                component: 'Openpay_Stores/js/view/payment/method-renderer/cc-form'
             }
         );
         /** Add view logic here if needed */

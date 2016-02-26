@@ -1,8 +1,8 @@
 /**
- * Openpay_Cards Magento JS component
+ * Openpay_Stores Magento JS component
  *
  * @category    Openpay
- * @package     Openpay_Cards
+ * @package     Openpay_Stores
  * @author      Federico Balderas
  * @copyright   Openpay (http://openpay.mx)
  * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
@@ -23,11 +23,11 @@ define(
 
         return Component.extend({
             defaults: {
-                template: 'Openpay_Cards/payment/openpay-form'
+                template: 'Openpay_Stores/payment/openpay-form'
             },
             
             getCode: function() {
-                return 'openpay_cards';
+                return 'openpay_stores';
             },
 
             isActive: function() {
@@ -50,12 +50,12 @@ define(
                     //antifraudes
                     OpenPay.deviceData.setup(this.getCode() + '-form', "device_session_id");
 
-                    var year_full = $('#openpay_cards_expiration_yr').val();
+                    var year_full = $('#openpay_stores_expiration_yr').val();
                     var holder_name = customer.firstname+" "+customer.lastname;
-                    var card = $('#openpay_cards_cc_number').val();
-                    var cvc = $('#openpay_cards_cc_cid').val();
+                    var card = $('#openpay_stores_cc_number').val();
+                    var cvc = $('#openpay_stores_cc_cid').val();
                     var year = year_full.toString().substring(2, 4);
-                    var month = $('#openpay_cards_expiration').val();
+                    var month = $('#openpay_stores_expiration').val();
 
                     var data = {
                         holder_name: holder_name,
@@ -100,7 +100,7 @@ define(
              */
             getData: function () {
                 return {
-                    'method': "openpay_cards",
+                    'method': "openpay_stores",
                     'additional_data': {         
                         'cc_cid': this.creditCardVerificationNumber(),                        
                         'cc_type': this.creditCardType(),

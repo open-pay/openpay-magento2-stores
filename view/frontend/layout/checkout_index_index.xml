@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Openpay_Cards layout configuration
+ * Openpay_Stores layout configuration
  *
  * @category    Openpay
- * @package     Openpay_Cards
+ * @package     Openpay_Stores
  * @author      Federico Balderas
  * @copyright   Openpay (http://openpay.mx)
  * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
@@ -15,7 +15,7 @@
         <script src="https://openpay.s3.amazonaws.com/openpay.v1.min.js" src_type="url" />        
         <script src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js" src_type="url" />        
         <!--  <link src="js/sample.js"/>
-        <script src="Openpay_Cards::js/sample.js"/> -->
+        <script src="Openpay_Stores::js/sample.js"/> -->
     </head>
     <body>
         <referenceBlock name="checkout.root">
@@ -34,10 +34,10 @@
                                                         <item name="renders" xsi:type="array">
                                                             <!-- merge payment method renders here -->
                                                             <item name="children" xsi:type="array">
-                                                                <item name="openpay_cards-payments" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">Openpay_Cards/js/view/payment/openpay-payments</item>
+                                                                <item name="openpay_stores-payments" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Openpay_Stores/js/view/payment/openpay-payments</item>
                                                                     <item name="methods" xsi:type="array">
-                                                                        <item name="openpay_cards" xsi:type="array">
+                                                                        <item name="openpay_stores" xsi:type="array">
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
                                                                     </item>

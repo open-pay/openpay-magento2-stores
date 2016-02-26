@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Openpay_Cards DI definitions
+ * Openpay_Stores DI definitions
  *
  * @category    Openpay
- * @package     Openpay_Cards
+ * @package     Openpay_Stores
  * @author      Federico Balderas
  * @copyright   Openpay (http://openpay.mx)
  * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
@@ -15,14 +15,14 @@
     <virtualType name="OpenpayMagento\Cards\Model\ConfigProvider" type="Magento\Payment\Model\CcGenericConfigProvider">
         <arguments>
             <argument name="methodCodes" xsi:type="array">
-                <item name="openpay_cards" xsi:type="const">OpenpayMagento\Cards\Model\Payment::CODE</item>
+                <item name="openpay_stores" xsi:type="const">OpenpayMagento\Cards\Model\Payment::CODE</item>
             </argument>
         </arguments>
     </virtualType>    
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="openpay_cards_config_provider" xsi:type="object">OpenpayMagento\Cards\Model\OpenpayConfigProvider</item>
+                <item name="openpay_stores_config_provider" xsi:type="object">OpenpayMagento\Cards\Model\OpenpayConfigProvider</item>
             </argument>
         </arguments>
     </type>

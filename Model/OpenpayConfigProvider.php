@@ -15,7 +15,7 @@ class OpenpayConfigProvider implements ConfigProviderInterface
      * @var string[]
      */
     protected $methodCodes = [
-        'openpay_cards',        
+        'openpay_stores',        
     ];
 
     /**

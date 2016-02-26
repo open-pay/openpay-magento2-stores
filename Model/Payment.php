@@ -1,9 +1,9 @@
 <?php
 /**
- * Openpay_Cards payment method model
+ * Openpay_Stores payment method model
  *
  * @category    Openpay
- * @package     Openpay_Cards
+ * @package     Openpay_Stores
  * @author      Federico Balderas
  * @copyright   Openpay (http://openpay.mx)
  * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
@@ -13,7 +13,7 @@ namespace OpenpayMagento\Cards\Model;
 
 class Payment extends \Magento\Payment\Model\Method\Cc
 {
-    const CODE = 'openpay_cards';
+    const CODE = 'openpay_stores';
 
     protected $_code = self::CODE;
 
