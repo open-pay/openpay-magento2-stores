@@ -1,11 +1,6 @@
 /**
- * Openpay_Stores Magento JS component
- *
- * @category    Openpay
- * @package     Openpay_Stores
- * @author      Federico Balderas
- * @copyright   Openpay (http://openpay.mx)
- * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
  */
 /*browser:true*/
 /*global define*/
@@ -19,10 +14,10 @@ define(
         rendererList
     ) {
         'use strict';
-        rendererList.push(            
+        rendererList.push(
             {
                 type: 'openpay_stores',
-                component: 'Openpay_Stores/js/view/payment/method-renderer/cc-form'
+                component: 'Openpay_Stores/js/view/payment/method-renderer/openpay-method'
             }
         );
         /** Add view logic here if needed */
