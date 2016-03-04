@@ -24,6 +24,6 @@ Install
     php bin/magento cache:clean
     ```
 
-4. Enable and configure Openpay in Magento Admin under Stores/Configuration/Payment Methods/Openpay
+4. Enable and configure Openpay in Magento Admin under Stores > Configuration > Sales > Payment Methods > Openpay (Cash payment)
 
 

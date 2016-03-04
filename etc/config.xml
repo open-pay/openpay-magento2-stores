@@ -21,6 +21,7 @@
                 <title>Openpay (pago en efectivo)</title>
                 <sandbox_sk backend_model="Magento\Config\Model\Config\Backend\Encrypted" />                
                 <live_sk backend_model="Magento\Config\Model\Config\Backend\Encrypted" />                     
+                <deadline_hours>72</deadline_hours>
                 <allowspecific>0</allowspecific>                                                     
             </openpay_stores>
         </payment>

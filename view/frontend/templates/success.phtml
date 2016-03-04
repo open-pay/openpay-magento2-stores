@@ -3,9 +3,6 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
-// @codingStandardsIgnoreFile
-
 ?>
 <?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
 <div class="checkout-success">
@@ -17,8 +14,8 @@
         <?php endif;?>
             <p><?php /* @escapeNotVerified */ echo __('We\'ll email you an order confirmation with details and tracking info.') ?></p>
             
-            <div style="width: 70%">
-                <iframe id="pdf" src="https://sandbox-dashboard.openpay.mx/paynet-pdf/<?php echo $_SESSION["openpay_merchant"] ?>/<?php echo $_SESSION["openpay_reference"] ?>" style="width:100%; height:950px;" frameborder="0"></iframe>    
+            <div style="width: 70%">                
+                <iframe id="pdf" src="<?php echo $_SESSION["pdf_url"] ?>" style="width:100%; height:950px;" frameborder="0"></iframe>    
             </div>  
                                   
     <?php endif;?>

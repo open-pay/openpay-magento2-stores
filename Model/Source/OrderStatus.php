@@ -1,15 +1,18 @@
 <?php
-/**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
+/** 
+ * @category    Payments
+ * @package     Openpay_Stores
+ * @author      Federico Balderas
+ * @copyright   Openpay (http://openpay.mx)
+ * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
  */
+
 namespace Openpay\Stores\Model\Source;
 
 use \Magento\Sales\Model\Order;
 
 /**
- * Class PaymentAction
- * @codeCoverageIgnore
+ * Class OrderStatus 
  */
 class OrderStatus implements \Magento\Framework\Option\ArrayInterface
 {

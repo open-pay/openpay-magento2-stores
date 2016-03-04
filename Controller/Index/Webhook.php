@@ -1,8 +1,10 @@
 <?php
-
-/**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
+/** 
+ * @category    Payments
+ * @package     Openpay_Stores
+ * @author      Federico Balderas
+ * @copyright   Openpay (http://openpay.mx)
+ * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
  */
 
 namespace Openpay\Stores\Controller\Index;
@@ -11,10 +13,7 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
- * Responsible for loading page content.
- *
- * This is a basic controller that only loads the corresponding layout file. It may duplicate other such
- * controllers, and thus it is considered tech debt. This code duplication will be resolved in future releases.
+ * Webhook class  
  */
 class Webhook extends \Magento\Framework\App\Action\Action
 {
@@ -29,8 +28,8 @@ class Webhook extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Load the page defined in view/frontend/layout/storeswebhook_index_webhook.xml
-     * URL /storeswebhook/index/webhook
+     * Load the page defined in view/frontend/layout/openpay_index_webhook.xml
+     * URL /openpay/index/webhook
      *
      * @return \Magento\Framework\View\Result\Page
      */
