@@ -12,7 +12,7 @@ Install
 2. Enter following commands to install module:
 
     ```bash    
-    composer require openpay/magento2-stores
+    composer require openpay/magento2-stores dev-master
     ```
    Wait while dependencies are updated.
 
