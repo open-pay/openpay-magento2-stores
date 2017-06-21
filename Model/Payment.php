@@ -242,7 +242,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * @return mixed
      */
     public function createWebhook() {
-        $protocol = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === true ? 'https://' : 'http://';
+        $protocol = $this->hostSecure() === true ? 'https://' : 'http://';
         $uri = $_SERVER['HTTP_HOST']."/openpay/index/webhook";
         $webhook_data = array(
             'url' => $protocol.$uri,
@@ -272,5 +272,20 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             return $this->error($e);
         }
     }
+    
+    /*
+     * Validate if host is secure (SSL)
+     */
+    public function hostSecure() {
+        $is_secure = false;
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+            $is_secure = true;
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+            $is_secure = true;
+        }
+        
+        return $is_secure;
+    }
+
 
 }
