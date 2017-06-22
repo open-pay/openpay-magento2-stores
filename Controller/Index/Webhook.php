@@ -37,11 +37,6 @@ class Webhook extends \Magento\Framework\App\Action\Action
         $objeto = file_get_contents('php://input');
         $json = json_decode($objeto);
 
-        if ($json->type == 'verification') {
-            header('HTTP/1.1 200 OK');
-            exit;
-        }
-
         if ($json->type == 'charge.succeeded' && ($json->transaction->method == 'store' || $json->transaction->method == 'bank_account')) {
             $order = $this->_objectManager->create('Magento\Sales\Model\Order');            
             $order->loadByAttribute('ext_order_id', $json->transaction->id);
@@ -50,13 +45,10 @@ class Webhook extends \Magento\Framework\App\Action\Action
             $order->setState($status)->setStatus($status);
             $order->addStatusHistoryComment("Pago recibido exitosamente")->setIsCustomerNotified(true);            
             $order->save();
-
-            header('HTTP/1.1 200 OK');
-            exit;
         }
-//        $resultPage = $this->resultPageFactory->create();
-//        $resultPage->getConfig()->getTitle()->prepend(__($json));
-//        return $resultPage;                
+
+        header('HTTP/1.1 200 OK');
+        exit;
     }
 
 }
