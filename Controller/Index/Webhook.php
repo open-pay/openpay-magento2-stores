@@ -34,19 +34,21 @@ class Webhook extends \Magento\Framework\App\Action\Action
      * @return \Magento\Framework\View\Result\Page
      */
     public function execute() {
-        $objeto = file_get_contents('php://input');
-        $json = json_decode($objeto);
+        $body = file_get_contents('php://input');        
+        if (strlen($body) > 0) {
+            $json = json_decode($body);
 
-        if ($json->type == 'charge.succeeded' && ($json->transaction->method == 'store' || $json->transaction->method == 'bank_account')) {
-            $order = $this->_objectManager->create('Magento\Sales\Model\Order');            
-            $order->loadByAttribute('ext_order_id', $json->transaction->id);
+            if ($json->type == 'charge.succeeded' && ($json->transaction->method == 'store' || $json->transaction->method == 'bank_account')) {
+                $order = $this->_objectManager->create('Magento\Sales\Model\Order');            
+                $order->loadByAttribute('ext_order_id', $json->transaction->id);
 
-            $status = \Magento\Sales\Model\Order::STATE_PROCESSING;
-            $order->setState($status)->setStatus($status);
-            $order->addStatusHistoryComment("Pago recibido exitosamente")->setIsCustomerNotified(true);            
-            $order->save();
-        }
-
+                $status = \Magento\Sales\Model\Order::STATE_PROCESSING;
+                $order->setState($status)->setStatus($status);
+                $order->addStatusHistoryComment("Pago recibido exitosamente")->setIsCustomerNotified(true);            
+                $order->save();
+            }
+        }        
+        
         header('HTTP/1.1 200 OK');
         exit;
     }
