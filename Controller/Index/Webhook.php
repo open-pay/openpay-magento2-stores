@@ -35,9 +35,8 @@ class Webhook extends \Magento\Framework\App\Action\Action
      */
     public function execute() {
         $body = file_get_contents('php://input');        
-        if (strlen($body) > 0) {
-            $json = json_decode($body);
-
+        $json = json_decode($body);        
+        if (isset($json->type)) {                     
             if ($json->type == 'charge.succeeded' && ($json->transaction->method == 'store' || $json->transaction->method == 'bank_account')) {
                 $order = $this->_objectManager->create('Magento\Sales\Model\Order');            
                 $order->loadByAttribute('ext_order_id', $json->transaction->id);
@@ -50,7 +49,7 @@ class Webhook extends \Magento\Framework\App\Action\Action
         }        
         
         header('HTTP/1.1 200 OK');
-        exit;
+        exit;        
     }
 
 }
