@@ -146,7 +146,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             $charge = $openpay->charges->create($charge_request);
             $payment->setTransactionId($charge->id);
 
-            $state = \Magento\Sales\Model\Order::STATE_PENDING_PAYMENT;
+            $state = \Magento\Sales\Model\Order::STATE_NEW;
             $order->setState($state)->setStatus($state);
             $order->setExtOrderId($charge->id);
 
