@@ -1,29 +1,28 @@
-Openpay-Magento2-Stores
-======================
+# Openpay-Magento2-Stores
 
-Openpay payment gateway extension for Magento2 (v2.2.5)
-
-
-Install
-=======
-
-1. Go to Magento2 root folder.
-
-2. Enter following commands to install module:
-
-    ```bash    
-    composer require openpay/magento2-stores dev-master
-    ```
-   Wait while dependencies are updated.
-
-3. Enter following commands to enable module:
-
-    ```bash
-    php bin/magento module:enable Openpay_Stores --clear-static-content
-    php bin/magento setup:upgrade
-    php bin/magento cache:clean
-    ```
-
-4. Enable and configure Openpay in Magento Admin under Stores > Configuration > Sales > Payment Methods > Openpay (Cash payment)
+Módulo para pagos en efectivo con Openpay para Magento2 (soporte hasta v2.3.0)
 
 
+## Instalación
+
+1. Ir a la carpeta raíz del proyecto de Magento y seguir los siguiente pasos:
+
+**Para versiones de Magento < 2.3.0**
+```bash    
+composer require openpay/magento2-stores:2.0.*
+```
+
+**Para versiones de Magento >= 2.3.0**
+```bash    
+composer require openpay/magento2-stores:2.3.*
+```
+
+2. Después se procede a habilitar el módulo,actualizar y limpiar cache de la plataforma.
+
+```bash    
+php bin/magento module:enable Openpay_Stores --clear-static-content
+php bin/magento setup:upgrade
+php bin/magento cache:clean
+```
+
+3. Para configurar el módulo desde el panel de administración de la tienda diríjase a: Stores > Configuration > Sales > Payment Methods

@@ -15,6 +15,7 @@
         <payment>
             <openpay_stores>
                 <active>0</active>
+                <is_sandbox>1</is_sandbox>
                 <model>Openpay\Stores\Model\Payment</model>
                 <order_status>pending_payment</order_status>
                 <payment_action>order</payment_action>                
@@ -22,7 +23,9 @@
                 <sandbox_sk backend_model="Magento\Config\Model\Config\Backend\Encrypted" />                
                 <live_sk backend_model="Magento\Config\Model\Config\Backend\Encrypted" />                     
                 <deadline_hours>72</deadline_hours>
-                <allowspecific>0</allowspecific>                                                     
+                <show_map>0</show_map>
+                <allowspecific>1</allowspecific>      
+                <specificcountry>MX</specificcountry>                                               
             </openpay_stores>
         </payment>
     </default>
