@@ -68,7 +68,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             \Magento\Payment\Helper\Data $paymentData, 
             \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig, 
             \Magento\Payment\Model\Method\Logger $logger,             
-            \Openpay\Stores\Mail\Template\TransportBuilder $transportBuilder,
+            \Openpay\Stores\Model\Mail\TransportBuilder $transportBuilder,
             \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
             \Magento\Store\Model\StoreManagerInterface $storeManager,
             \Psr\Log\LoggerInterface $logger_interface,
@@ -163,8 +163,6 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
                 'customer' => $customer_data
             );
 
-//            $openpay = \Openpay::getInstance($this->merchant_id, $this->sk);
-//            \Openpay::setSandboxMode($this->is_sandbox);
             $openpay = $this->getOpenpayInstance();
             
             $charge = $openpay->charges->create($charge_request);
