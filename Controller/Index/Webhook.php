@@ -28,14 +28,7 @@ class Webhook extends \Magento\Framework\App\Action\Action implements CsrfAwareA
     protected $payment;
     protected $logger;
     protected $invoiceService;
-
-    /**
-     * 
-     * @param Context $context
-     * @param PageFactory $resultPageFactory
-     * @param \Magento\Framework\App\Request\Http $request
-     * @param OpenpayPayment $payment
-     */
+    
     public function __construct(
             Context $context,             
             \Magento\Framework\App\Request\Http $request, 

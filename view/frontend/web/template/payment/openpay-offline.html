@@ -21,8 +21,8 @@
             <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
         </div>
-        
-        <div class="items check payable">            
+                
+        <div id="mx-stores-container" class="items check payable" data-bind="visible: country() === 'MX'">            
             <h3 style="border-bottom: 1px solid #cccccc; padding-bottom: 15px;">Pago en efectivo en tiendas de conveniencia</h3>            
             <img src="https://s28.postimg.cc/duko0g6z1/stores.png" alt="" style="max-width: 100%;" />
             <p>
@@ -45,6 +45,29 @@
             </div>
         </div>
         
+        <div id="co-stores-container" class="items check payable" data-bind="visible: country() === 'CO'">
+            <h3 style="border-bottom: 1px solid #cccccc; padding-bottom: 15px;">Pago en efectivo en tiendas de conveniencia</h3>            
+            <img src="https://i.postimg.cc/xdmCfHn5/Captura-de-Pantalla-2020-02-24-a-la-s-23-11-34.png" alt="" style="max-width: 100%;" />
+            <p>
+                <a href="http://www.openpay.mx/tiendas-de-conveniencia.html" target="_blank">Consulta las tiendas afiliadas</a>
+            </p>           
+            <h3 style="margin-top: 25px; margin-bottom: 20px;">Pasos para tu pago por tienda</h3>
+            <div style="overflow: hidden;">                
+                <div style="width: 30%; float: left; text-align: center; padding-left: 1.5%; padding-right: 1.5%;">
+                    <img src="https://s14.postimg.cc/wt10fdulp/step1.png" alt="" style="max-width: 100%;" />
+                    <p style="padding: 3px;">Haz clic en el botón pago, tu compra quedará en espera de que realices tu pago.</p>
+                </div>    
+                <div style="width: 30%; float: left; text-align: center; padding-left: 1.5%; padding-right: 1.5%;">
+                    <img src="https://s28.postimg.cc/azv09o2tl/step_store.png" alt="" style="max-width: 100%;" />
+                    <p style="padding: 3px;">Imprime tu recibo, llévalo a tu tienda de conveniencia más cercana y realiza el pago.</p>
+                </div>    
+                <div style="width: 30%; float: left; text-align: center; padding-left: 1.5%; padding-right: 1.5%;">
+                    <img src="https://s13.postimg.cc/6c2yov3g3/step3.png" alt="" style="max-width: 100%;" />
+                    <p style="padding: 3px;">Inmediatamente después de recibir tu pago te enviaremos un correo electrónico con la confirmación de pago.</p>
+                </div>    
+            </div>
+        </div>
+                    
         <div class="checkout-agreements-block">
             <!-- ko foreach: $parent.getRegion('before-place-order') -->
                 <!-- ko template: getTemplate() --><!-- /ko -->
