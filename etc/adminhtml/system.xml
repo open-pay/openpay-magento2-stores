@@ -25,23 +25,39 @@
                 <field id="is_sandbox" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Sandbox</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>                               
+                </field>         
+                <field id="country" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>País</label>
+                    <source_model>Openpay\Stores\Model\Source\Countries::getOptions</source_model>                    
+                </field>                        
                 <field id="title" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Title</label>
                 </field>
                 <field id="sandbox_merchant_id" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Sandbox Merchant ID</label>                    
+                    <label>Sandbox Merchant ID</label>    
+                    <depends>
+                        <field id="is_sandbox">1</field>
+                    </depends>                               
                 </field>
                 <field id="sandbox_sk" translate="label" type="obscure" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Sandbox Llave Secreta</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="is_sandbox">1</field>
+                    </depends>               
                 </field>                
                 <field id="live_merchant_id" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Producción Merchant ID</label>                    
+                    <label>Producción Merchant ID</label>          
+                    <depends>
+                        <field id="is_sandbox">0</field>
+                    </depends>                         
                 </field>
                 <field id="live_sk" translate="label" type="obscure" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Producción Llave Secreta</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="is_sandbox">0</field>
+                    </depends>                         
                 </field>  
                 <field id="deadline_hours" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Fecha límite de pago</label>                    
@@ -52,12 +68,23 @@
                     <label>Mostrar mapa</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Al seleccionar esta opción, un mapa se desplegará mostrando las tiendas más cercanas al momento mostrar el recipo de pago (https://www.openpay.mx/docs/stores-map.html).</comment>
-                </field>                                                                  
-                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <depends>
+                        <field id="country">MX</field>
+                    </depends> 
+                </field>      
+                <field id="iva" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>IVA</label>            
+                    <validate>required-entry validate-zero-or-greater validate-digits</validate>
+                    <comment>Debe contener el valor de IVA, es campo solo informativo, no tiene ningún efecto sobre el campo amount.</comment>
+                    <depends>
+                        <field id="country">CO</field>
+                    </depends>                       
+                </field>                                                              
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
                     <label>Pago Aplicable para Países</label>
                     <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
                 </field>
-                <field id="specificcountry" translate="label" type="multiselect" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
                     <label>Pago para Países Específicos</label>
                     <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
                 </field>          
