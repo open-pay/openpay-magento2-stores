@@ -136,6 +136,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         $this->live_merchant_id = $this->getConfigData('live_merchant_id');
         $this->live_sk = $this->getConfigData('live_sk');
         $this->show_map = $this->country === 'MX' ? $this->getConfigData('show_map') : false;
+        $this->deadline = $this->country === 'MX' ? $this->getConfigData('deadline_hours') : null;
         
         $this->iva = $this->country === 'CO' ? $this->getConfigData('iva') : '0';
         
