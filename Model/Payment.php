@@ -136,6 +136,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         $this->live_merchant_id = $this->getConfigData('live_merchant_id');
         $this->live_sk = $this->getConfigData('live_sk');
         $this->show_map = $this->country === 'MX' ? $this->getConfigData('show_map') : false;
+        $this->deadline = $this->country === 'MX' ? $this->getConfigData('deadline_hours') : null;
         
         $this->iva = $this->country === 'CO' ? $this->getConfigData('iva') : '0';
         
@@ -482,6 +483,9 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         $openpay = \Openpay::getInstance($this->merchant_id, $this->sk);
         \Openpay::setSandboxMode($this->is_sandbox);
 
+        $userAgent = "Openpay-MTO2".$this->country."/v2";
+        \Openpay::setUserAgent($userAgent);
+
         try {
             $webhook = $openpay->webhooks->add($webhook_data);
             return $webhook;
@@ -510,7 +514,11 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
 
     public function getOpenpayInstance() {
         $openpay = \Openpay::getInstance($this->merchant_id, $this->sk);
-        \Openpay::setSandboxMode($this->is_sandbox);        
+        \Openpay::setSandboxMode($this->is_sandbox);
+        
+        $userAgent = "Openpay-MTO2".$this->country."/v2";
+        \Openpay::setUserAgent($userAgent);
+        
         return $openpay;
     }
 
