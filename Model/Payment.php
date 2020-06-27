@@ -136,7 +136,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         $this->live_merchant_id = $this->getConfigData('live_merchant_id');
         $this->live_sk = $this->getConfigData('live_sk');
         $this->show_map = $this->country === 'MX' ? $this->getConfigData('show_map') : false;
-        $this->deadline = $this->country === 'MX' ? $this->getConfigData('deadline_hours') : null;
+        $this->deadline = $this->getConfigData('deadline_hours');
         
         $this->iva = $this->country === 'CO' ? $this->getConfigData('iva') : '0';
         
@@ -449,7 +449,9 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * @return boolean
      */
     public function validateAddress($billing) {
-        if ($billing->getStreetLine(1) && $billing->getCity() && $billing->getPostcode() && $billing->getRegion() && $billing->getCountryId()) {
+        if ($billing->getCountryId() === 'MX' && $billing->getStreetLine(1) && $billing->getCity() && $billing->getPostcode() && $billing->getRegion()) {
+            return true;
+        }else if ($billing->getCountryId() === 'CO' && $billing->getStreetLine(1) && $billing->getCity() && $billing->getRegion()) {
             return true;
         }
         return false;
@@ -476,7 +478,8 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
                 'spei.received',
                 'chargeback.created',
                 'chargeback.rejected',
-                'chargeback.accepted'
+                'chargeback.accepted',
+                'transaction.expired'
             )
         );
 

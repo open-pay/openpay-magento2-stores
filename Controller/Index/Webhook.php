@@ -60,21 +60,28 @@ class Webhook extends \Magento\Framework\App\Action\Action implements CsrfAwareA
 
             $this->logger->debug('#webhook', array('trx_id' => $json->transaction->id, 'status' => $charge->status));        
 
-            if (isset($json->type) && $json->type == 'charge.succeeded' && $charge->status == 'completed' && ($json->transaction->method == 'store' || $json->transaction->method == 'bank_account')) {
+            if (isset($json->type) && ($json->transaction->method == 'store' || $json->transaction->method == 'bank_account')) {
                 $order = $this->_objectManager->create('Magento\Sales\Model\Order');            
                 $order->loadByAttribute('ext_order_id', $charge->id);
 
-                $status = \Magento\Sales\Model\Order::STATE_PROCESSING;
-                $order->setState($status)->setStatus($status);
-                $order->setTotalPaid($charge->amount);  
-                $order->addStatusHistoryComment("Pago recibido exitosamente")->setIsCustomerNotified(true);            
-                $order->save();
-                
-                $invoice = $this->invoiceService->prepareInvoice($order);        
-                $invoice->setTransactionId($charge->id);
-                $invoice->setRequestedCaptureCase(\Magento\Sales\Model\Order\Invoice::CAPTURE_ONLINE);
-                $invoice->register();
-                $invoice->save();
+                if($json->type == 'charge.succeeded' && $charge->status == 'completed' ){
+                    $status = \Magento\Sales\Model\Order::STATE_PROCESSING;
+                    $order->setState($status)->setStatus($status);
+                    $order->setTotalPaid($charge->amount);  
+                    $order->addStatusHistoryComment("Pago recibido exitosamente")->setIsCustomerNotified(true);            
+                    $order->save();
+                    
+                    $invoice = $this->invoiceService->prepareInvoice($order);        
+                    $invoice->setTransactionId($charge->id);
+                    $invoice->setRequestedCaptureCase(\Magento\Sales\Model\Order\Invoice::CAPTURE_ONLINE);
+                    $invoice->register();
+                    $invoice->save();
+                }else if($json->type == 'transaction.expired' && $charge->status == 'cancelled'){
+                    $status = \Magento\Sales\Model\Order::STATE_CANCELED;
+                    $order->setState($status)->setStatus($status);
+                    $order->addStatusHistoryComment("Pago vencido")->setIsCustomerNotified(true);            
+                    $order->save();
+                }
             }                    
         } catch (\Exception $e) {
             $this->logger->error('#webhook', array('msg' => $e->getMessage()));                    
