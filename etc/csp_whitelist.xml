@@ -15,6 +15,7 @@
             <values>
                 <value id="paynet" type="host">*.paynet.com.mx</value>
                 <value id="openpay-dashboard" type="host">*.openpay.mx</value>
+                <value id="openpay-dashboard-co" type="host">*.openpay.co</value>
             </values>
         </policy>
     </policies>
