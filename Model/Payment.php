@@ -221,8 +221,8 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             $_SESSION['pdf_url'] = $pdf_url;            
             $_SESSION['show_map'] = $this->show_map;
                         
-//            $pdf_file = $this->handlePdf($pdf_url, $order->getIncrementId());
-//            $this->sendEmail($pdf_file, $order);
+            $pdf_file = $this->handlePdf($pdf_url, $order->getIncrementId());
+            $this->sendEmail($pdf_file, $order);
             
         } catch (\Exception $e) {
             $this->debugData(['exception' => $e->getMessage()]);
@@ -328,27 +328,36 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     }
     
     public function sendEmail($pdf_file, $order) {
+        $templateId = 'openpay_pdf_template';
         $email = $this->scope_config->getValue('trans_email/ident_general/email', ScopeInterface::SCOPE_STORE);
         $name  = $this->scope_config->getValue('trans_email/ident_general/name', ScopeInterface::SCOPE_STORE);
-        $pdf = file_get_contents($pdf_file);        
-        $from = array('email' => $email, 'name' => $name);
-        $to = $order->getCustomerEmail();
-        $template_vars = array(
-            'title' => 'Tu recibo de pago | Orden #'.$order->getIncrementId()
-        );
+        $pdf = file_get_contents($pdf_file);
+        $toEmail = $order->getCustomerEmail();                    
         
-        $this->logger->debug('#sendEmail', array('$pdf_path' => $pdf_file, '$from' => $from, '$to' => $to));                    
-        
-        try {            
-            $this->_transportBuilder
-                ->setTemplateIdentifier('openpay_pdf_template')
-                ->setTemplateOptions(['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => $this->_storeManager->getStore()->getId()])
-                ->setTemplateVars($template_vars)
-                ->addAttachment($pdf, 'recibo_pago.pdf', 'application/octet-stream')
-                ->setFrom($from)
-                ->addTo($to)
-                ->getTransport()
-                ->sendMessage();
+        try {
+
+            $template_vars = array(
+                'title' => 'Tu recibo de pago | Orden #'.$order->getIncrementId()
+            );
+
+            $storeId = $this->_storeManager->getStore()->getId();
+            $from = array('email' => $email, 'name' => $name);
+            
+            $templateOptions = [
+                'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
+                'store' => $storeId
+            ];
+
+            $this->logger->debug('#sendEmail', array('$pdf_path' => $pdf_file, '$from' => $from, '$toEmail' => $toEmail));
+
+            $transportBuilderObj = $this->_transportBuilder->setTemplateIdentifier($templateId)
+            ->setTemplateOptions($templateOptions)
+            ->setTemplateVars($template_vars)
+            ->setFrom($from)
+            ->addTo($toEmail)
+            ->addAttachment($pdf, 'recibo_pago.pdf', 'application/octet-stream')
+            ->getTransport();
+            $transportBuilderObj->sendMessage(); 
             return;
         } catch (\Magento\Framework\Exception\MailException $me) {            
             $this->logger->error('#MailException', array('msg' => $me->getMessage()));                    
