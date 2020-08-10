@@ -3,7 +3,8 @@
     <policies>
         <policy id="connect-src">
             <values>
-                <value id="openpay" type="host">*.openpay.mx</value>
+                <value id="openpay.mx" type="host">*.openpay.mx</value>
+                <value id="openpay.co" type="host">*.openpay.co</value>
             </values>
         </policy>
         <policy id="img-src">
@@ -14,8 +15,8 @@
         <policy id="frame-src">
             <values>
                 <value id="paynet" type="host">*.paynet.com.mx</value>
-                <value id="openpay-dashboard" type="host">*.openpay.mx</value>
-                <value id="openpay-dashboard-co" type="host">*.openpay.co</value>
+                <value id="openpay-dashboard.mx" type="host">*.openpay.mx</value>
+                <value id="openpay-dashboard.co" type="host">*.openpay.co</value>
             </values>
         </policy>
     </policies>
