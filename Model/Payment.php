@@ -172,6 +172,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         try {
 
             $customer_data = array(
+                'requires_account' => false,
                 'name' => $billing->getFirstname(),
                 'last_name' => $billing->getLastname(),
                 'phone_number' => $billing->getTelephone(),
@@ -459,10 +460,10 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * @return mixed
      */
     public function createWebhook() {
-        $protocol = $this->hostSecure() === true ? 'https://' : 'http://';
-        $uri = $_SERVER['HTTP_HOST']."/openpay/index/webhook";
+        $base_url = $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
+        $uri = $base_url."openpay/index/webhook";
         $webhook_data = array(
-            'url' => $protocol.$uri,
+            'url' => $uri,
             'event_types' => array(
                 'verification',
                 'charge.succeeded',
