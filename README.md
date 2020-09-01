@@ -1,6 +1,6 @@
 # Openpay-Magento2-Stores
 
-Módulo para pagos en efectivo con Openpay para Magento2 (soporte hasta v2.3.0)
+Módulo para pagos en efectivo con Openpay para Magento2 (soporte hasta v2.3.4)
 
 
 ## Instalación
