@@ -375,11 +375,9 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             $transportBuilderObj->sendMessage(); 
             return;
         } catch (\Magento\Framework\Exception\MailException $me) {            
-            $this->logger->error('#MailException', array('msg' => $me->getMessage()));                    
-            throw new \Magento\Framework\Exception\LocalizedException(__($me->getMessage()));
+            $this->logger->error('#MailException', array('msg' => $me->getMessage()));
         } catch (\Exception $e) {            
-            $this->logger->error('#Exception', array('msg' => $e->getMessage()));                    
-            throw new \Magento\Framework\Exception\LocalizedException(__($e->getMessage()));
+            $this->logger->error('#Exception', array('msg' => $e->getMessage()));
         }
     }    
     
@@ -450,7 +448,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     public function error($e) {
 
         /* 6001 el webhook ya existe */
-        switch ($e->getErrorCode()) {
+        switch ($e->getCode()) {
             case '1000':
             case '1004':
             case '1005':
@@ -465,7 +463,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
                 break;
         }
 
-        return 'ERROR '.$e->getErrorCode().'. '.$msg;
+        return 'ERROR '.$e->getCode().'. '.$msg;
     }
 
     /**
