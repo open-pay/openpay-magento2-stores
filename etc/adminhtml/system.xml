@@ -22,7 +22,7 @@
                     <label>Habilitar</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>                
-                <field id="is_sandbox" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="is_sandbox" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Sandbox</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>         
@@ -30,36 +30,36 @@
                     <label>País</label>
                     <source_model>Openpay\Stores\Model\Source\Countries::getOptions</source_model>                    
                 </field>                        
-                <field id="title" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="title" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Title</label>
                 </field>
-                <field id="sandbox_merchant_id" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="sandbox_merchant_id" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Sandbox Merchant ID</label>    
                     <depends>
                         <field id="is_sandbox">1</field>
                     </depends>                               
                 </field>
-                <field id="sandbox_sk" translate="label" type="obscure" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                <field id="sandbox_sk" translate="label" type="obscure" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Sandbox Llave Secreta</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <depends>
                         <field id="is_sandbox">1</field>
                     </depends>               
                 </field>                
-                <field id="live_merchant_id" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="live_merchant_id" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Producción Merchant ID</label>          
                     <depends>
                         <field id="is_sandbox">0</field>
                     </depends>                         
                 </field>
-                <field id="live_sk" translate="label" type="obscure" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="0">
+                <field id="live_sk" translate="label" type="obscure" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Producción Llave Secreta</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <depends>
                         <field id="is_sandbox">0</field>
                     </depends>                         
                 </field>  
-                <field id="deadline_hours" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="deadline_hours" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Fecha límite de pago</label>                    
                     <validate>required-entry</validate>                      
                     <comment>Define cuantas horas máximo tendrá el cliente para pagar una vez que se genera el recibo de pago.</comment> 
@@ -72,7 +72,7 @@
                         <field id="country">MX</field>
                     </depends> 
                 </field>      
-                <field id="iva" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="iva" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>IVA</label>            
                     <validate>required-entry validate-zero-or-greater validate-digits</validate>
                     <comment>Debe contener el valor de IVA, es campo solo informativo, no tiene ningún efecto sobre el campo amount.</comment>
@@ -88,7 +88,7 @@
                     <label>Pago para Países Específicos</label>
                     <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
                 </field>          
-                <field id="sort_order" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="0">
+                <field id="sort_order" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Orden</label>
                 </field>                
             </group>
