@@ -477,8 +477,17 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * @return mixed
      */
     public function createWebhook() {
+        $openpay = $this->getOpenpayInstance();
+        
         $base_url = $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
         $uri = $base_url."openpay/index/webhook";
+
+        $webhooks = $openpay->webhooks->getList([]);
+        $webhookCreated = $this->isWebhookCreated($webhooks, $uri);
+        if($webhookCreated){
+            return $webhookCreated;
+        }
+
         $webhook_data = array(
             'url' => $uri,
             'event_types' => array(
@@ -497,12 +506,6 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
                 'transaction.expired'
             )
         );
-
-        $openpay = \Openpay::getInstance($this->merchant_id, $this->sk, $this->country);
-        \Openpay::setSandboxMode($this->is_sandbox);
-
-        $userAgent = "Openpay-MTO2".$this->country."/v2";
-        \Openpay::setUserAgent($userAgent);
 
         try {
             $webhook = $openpay->webhooks->add($webhook_data);
@@ -540,4 +543,12 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         return $openpay;
     }
 
+    private function isWebhookCreated($webhooks, $uri){
+        foreach ($webhooks as $webhook) {
+            if($webhook->__get('url') === $uri){
+                return $webhook;
+            }
+        }
+        return null;
+    }
 }
