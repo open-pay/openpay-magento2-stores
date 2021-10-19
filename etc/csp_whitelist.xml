@@ -5,11 +5,13 @@
             <values>
                 <value id="openpay.mx" type="host">*.openpay.mx</value>
                 <value id="openpay.co" type="host">*.openpay.co</value>
+                <value id="openpay.pe" type="host">*.openpay.pe</value>
             </values>
         </policy>
         <policy id="img-src">
             <values>
                 <value id="openpay-img" type="host">*.postimg.cc</value>
+                <value id="openpay.mx-img" type="host">*.openpay.mx</value>
             </values>
         </policy>
         <policy id="frame-src">
@@ -17,6 +19,7 @@
                 <value id="paynet" type="host">*.paynet.com.mx</value>
                 <value id="openpay-dashboard.mx" type="host">*.openpay.mx</value>
                 <value id="openpay-dashboard.co" type="host">*.openpay.co</value>
+                <value id="openpay-dashboard.pe" type="host">*.openpay.pe</value>
             </values>
         </policy>
     </policies>

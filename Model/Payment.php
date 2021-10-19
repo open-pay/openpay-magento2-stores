@@ -82,7 +82,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * @param \Magento\Framework\Filesystem\Io\File $file
      * @param Customer $customerModel
      * @param CustomerSession $customerSession
-     * @param \Openpay\Stores\Model\OpenpayCustomerFactory $openpayCustomerFactory
+     * @param \Openpay\Cards\Model\OpenpayCustomerFactory $openpayCustomerFactory
      * @param array $data
      */
     public function __construct(
@@ -101,7 +101,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             \Magento\Framework\Filesystem\Io\File $file,
             Customer $customerModel,
             CustomerSession $customerSession,            
-            \Openpay\Stores\Model\OpenpayCustomerFactory $openpayCustomerFactory,
+            \Openpay\Cards\Model\OpenpayCustomerFactory $openpayCustomerFactory,
             array $data = []            
     ) {
         parent::__construct(
@@ -144,10 +144,9 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         
         $this->merchant_id = $this->is_sandbox ? $this->sandbox_merchant_id : $this->live_merchant_id;
         $this->sk = $this->is_sandbox ? $this->sandbox_sk : $this->live_sk;
-        
-        $pdf_url_base_mx = $this->is_sandbox ? 'https://sandbox-dashboard.openpay.mx/paynet-pdf' : 'https://dashboard.openpay.mx/paynet-pdf';
-        $pdf_url_base_co = $this->is_sandbox ? 'https://sandbox-dashboard.openpay.co/paynet-pdf' : 'https://dashboard.openpay.co/paynet-pdf';        
-        $this->pdf_url_base = $this->country === 'MX' ? $pdf_url_base_mx : $pdf_url_base_co;
+
+        $url_base = $this->getUrlBaseOpenpay();
+        $this->pdf_url_base = $url_base . "/paynet-pdf";
     }
 
     /**
@@ -324,7 +323,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     }
     
     private function formatAddress($customer_data, $billing) {
-        if ($this->country === 'MX') {
+        if ($this->country === 'MX' || $this->country === 'PE') {
             $customer_data['address'] = array(
                 'line1' => $billing->getStreetLine(1),
                 'line2' => $billing->getStreetLine(2),
@@ -407,12 +406,17 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * @return bool
      */
     public function canUseForCurrency($currencyCode) {        
-        if ($this->country === 'MX') {
-            return in_array($currencyCode, $this->supported_currency_codes);
-        } else if ($this->country === 'CO') {
-            return $currencyCode == 'COP';
+        switch($this->country) {
+            case 'MX':
+                return in_array($currencyCode, $this->supported_currency_codes);
+            break;
+            case 'CO':
+                return $currencyCode == 'COP';
+            break;
+            case 'PE':
+                return $currencyCode == 'PEN';
+            break;
         }
-        
         return false;
     }
 
@@ -473,10 +477,10 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * @return boolean
      */
     public function validateAddress($billing) {
-        if ($billing->getCountryId() === 'MX' && $billing->getStreetLine(1) && $billing->getCity() && $billing->getPostcode() && $billing->getRegion()) {
-            return true;
-        }else if ($billing->getCountryId() === 'CO' && $billing->getStreetLine(1) && $billing->getCity() && $billing->getRegion()) {
-            return true;
+        if($this->country === 'MX' || $this->country === 'PE') {
+            return $billing->getStreetLine(1) && $billing->getCity() && $billing->getPostcode() && $billing->getRegion();
+        } elseif($this->country === 'CO') {
+            return $billing->getStreetLine(1) && $billing->getCity() && $billing->getRegion();
         }
         return false;
     }
@@ -550,6 +554,20 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         Openpay::setUserAgent($userAgent);
         
         return $openpay;
+    }
+
+    private function getUrlBaseOpenpay() {
+        switch($this->country) {
+            case 'MX':
+                return $this->is_sandbox ? "https://sandbox-dashboard.openpay.mx" : "https://dashboard.openpay.mx";
+            break;
+            case 'CO':
+                return $this->is_sandbox ? "https://sandbox-dashboard.openpay.co" : "https://dashboard.openpay.co";
+            break;
+            case 'PE':
+                return $this->is_sandbox ? "https://sandbox-dashboard.openpay.pe" : "https://dashboard.openpay.pe";
+            break;
+        }
     }
 
     private function isWebhookCreated($webhooks, $uri) {
