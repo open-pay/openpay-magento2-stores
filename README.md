@@ -18,8 +18,8 @@ composer require openpay/magento2-stores:~3.4.0
 ```
 
 **Para versiones de Magento >= 2.3.5**
-```bash    
-composer require openpay/magento2-stores:~4.0.0
+```bash
+composer require openpay/magento2-stores:~4.1.*
 ```
 
 2. Después se procede a habilitar el módulo,actualizar y limpiar cache de la plataforma.
