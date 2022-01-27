@@ -30,7 +30,7 @@
                 <model>Openpay\Stores\Model\Payment</model>
                 <order_status>pending_payment</order_status>
                 <payment_action>order</payment_action>                
-                <title>Openpay (pago en efectivo)</title>
+                <title>Pago en efectivo</title>
                 <sandbox_sk backend_model="Magento\Config\Model\Config\Backend\Encrypted" />                
                 <live_sk backend_model="Magento\Config\Model\Config\Backend\Encrypted" />                     
                 <deadline_hours>72</deadline_hours>
