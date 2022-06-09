@@ -219,7 +219,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             $order->setExtCustomerId($openpay_customer_id);
             $order->save();  
             
-            $pdf_url = $this->pdf_url_base.'/'.$this->merchant_id.'/'.$charge->payment_method->reference;
+            $pdf_url = $this->pdf_url_base.'/'.$this->merchant_id.'/'.'transaction/'.$charge->id;
             $_SESSION['pdf_url'] = $pdf_url;            
             $_SESSION['show_map'] = $this->show_map;
                         
