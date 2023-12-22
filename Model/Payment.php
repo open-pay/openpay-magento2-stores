@@ -44,7 +44,6 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     protected $live_merchant_id;
     protected $live_sk;
     protected $pdf_url_base;
-    protected $show_map;
     protected $supported_currency_codes = array('MXN');
     protected $_transportBuilder;
     protected $logger;
@@ -137,7 +136,6 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         $this->sandbox_sk = $this->getConfigData('sandbox_sk');
         $this->live_merchant_id = $this->getConfigData('live_merchant_id');
         $this->live_sk = $this->getConfigData('live_sk');
-        $this->show_map = $this->country === 'MX' ? $this->getConfigData('show_map') : false;
         $this->deadline = $this->getConfigData('deadline_hours');
         
         $this->iva = $this->country === 'CO' ? $this->getConfigData('iva') : '0';
@@ -220,8 +218,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             $order->save();  
             
             $pdf_url = $this->pdf_url_base.'/'.$this->merchant_id.'/'.'transaction/'.$charge->id;
-            $_SESSION['pdf_url'] = $pdf_url;            
-            $_SESSION['show_map'] = $this->show_map;
+            $_SESSION['pdf_url'] = $pdf_url;
                         
             $pdf_file = $this->handlePdf($pdf_url, $order->getIncrementId());
             $this->sendEmail($pdf_file, $order);
