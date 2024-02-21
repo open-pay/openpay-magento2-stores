@@ -16,7 +16,10 @@
             <group id="openpay_stores" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Openpay (Pago en tiendas)</label>
                 <comment>
-                    <![CDATA[<a href="http://openpay.mx/" target="_blank">Click here to sign up for Openpay account</a>]]>
+                    <![CDATA[
+                    <p>Version: 4.2.0</p>
+                    <a href="http://openpay.mx/" target="_blank">Clic aquí para registrar una cuenta con Openpay</a>
+                    ]]>
                 </comment>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Habilitar</label>
@@ -63,7 +66,7 @@
                     <label>Fecha límite de pago</label>                    
                     <validate>required-entry</validate>                      
                     <comment>Define cuantas horas máximo tendrá el cliente para pagar una vez que se genera el recibo de pago.</comment> 
-                </field>                 
+                </field>
                 <field id="iva" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>IVA</label>            
                     <validate>required-entry validate-zero-or-greater validate-digits</validate>
