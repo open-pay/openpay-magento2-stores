@@ -45,7 +45,6 @@ class Payment extends AbstractMethod
     protected $live_merchant_id;
     protected $live_sk;
     protected $pdf_url_base;
-    protected $show_map;
     protected $supported_currency_codes = array('MXN');
     protected $_transportBuilder;
     protected $logger;
@@ -83,7 +82,7 @@ class Payment extends AbstractMethod
      * @param \Magento\Framework\Filesystem\Io\File $file
      * @param Customer $customerModel
      * @param CustomerSession $customerSession
-     * @param \Openpay\Cards\Model\OpenpayCustomerFactory $openpayCustomerFactory
+     * @param \Openpay\Stores\Model\OpenpayCustomer $openpayCustomerFactory
      * @param array $data
      */
     public function __construct(
@@ -102,7 +101,7 @@ class Payment extends AbstractMethod
             \Magento\Framework\Filesystem\Io\File $file,
             Customer $customerModel,
             CustomerSession $customerSession,
-            \Openpay\Cards\Model\OpenpayCustomerFactory $openpayCustomerFactory,
+            \Openpay\Stores\Model\OpenpayCustomer $openpayCustomerFactory,
             array $data = []
     ) {
         parent::__construct(
@@ -138,7 +137,6 @@ class Payment extends AbstractMethod
         $this->sandbox_sk = $this->getConfigData('sandbox_sk');
         $this->live_merchant_id = $this->getConfigData('live_merchant_id');
         $this->live_sk = $this->getConfigData('live_sk');
-        $this->show_map = $this->country === 'MX' ? $this->getConfigData('show_map') : false;
         $this->deadline = $this->getConfigData('deadline_hours');
 
         $this->iva = $this->country === 'CO' ? $this->getConfigData('iva') : '0';
@@ -222,7 +220,6 @@ class Payment extends AbstractMethod
 
             $pdf_url = $this->pdf_url_base.'/'.$this->merchant_id.'/'.'transaction/'.$charge->id;
             $_SESSION['pdf_url'] = $pdf_url;
-            $_SESSION['show_map'] = $this->show_map;
 
             $pdf_file = $this->handlePdf($pdf_url, $order->getIncrementId());
             $this->sendEmail($pdf_file, $order);

@@ -60,8 +60,8 @@
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <depends>
                         <field id="is_sandbox">0</field>
-                    </depends>                         
-                </field>  
+                    </depends>
+                </field>
                 <field id="deadline_hours" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Fecha límite de pago</label>                    
                     <validate>required-entry</validate>                      
@@ -73,8 +73,8 @@
                     <comment>Debe contener el valor de IVA, es campo solo informativo, no tiene ningún efecto sobre el campo amount.</comment>
                     <depends>
                         <field id="country">CO</field>
-                    </depends>                       
-                </field>                                                              
+                    </depends>
+                </field>
                 <field id="allowspecific" translate="label" type="allowspecific" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
                     <label>Pago Aplicable para Países</label>
                     <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
