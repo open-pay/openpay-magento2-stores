@@ -101,7 +101,7 @@ class Payment extends AbstractMethod
             \Magento\Framework\Filesystem\Io\File $file,
             Customer $customerModel,
             CustomerSession $customerSession,
-            \Openpay\Stores\Model\OpenpayCustomer $openpayCustomerFactory,
+            \Openpay\Stores\Model\OpenpayCustomerFactory $openpayCustomerFactory,
             array $data = []
     ) {
         parent::__construct(
@@ -170,8 +170,9 @@ class Payment extends AbstractMethod
         /** @var \Magento\Sales\Model\Order\Address $billing */
         $billing = $order->getBillingAddress();
 
-        try {
+        $origin_channel = "PLUGIN_MAGENTO";
 
+        try {
             $customer_data = array(
                 'requires_account' => false,
                 'name' => $billing->getFirstname(),
@@ -193,7 +194,8 @@ class Payment extends AbstractMethod
                 'description' => sprintf('ORDER #%s, %s', $order->getIncrementId(), $order->getCustomerEmail()),
                 'order_id' => $order->getIncrementId(),
                 'due_date' => $due_date,
-                'customer' => $customer_data
+                'customer' => $customer_data,
+                'origin_channel' => $origin_channel
             );
 
             if ($this->country === 'CO') {
@@ -315,6 +317,9 @@ class Payment extends AbstractMethod
                 return false;
             }
             return $customer;
+        } catch (OpenpayApiConnectionError $e) {
+            $this->_logger->error('#getOpenpayCustomer OpenpayApiConnectionError (openpay->customers->get)', array('message' => $e->getMessage()));
+            return false;
         } catch (\Exception $e) {
             return false;
         }
