@@ -16,7 +16,7 @@ namespace Openpay\Stores\Mail;
 use Laminas\Mime\Mime;
 use Laminas\Mime\PartFactory;
 use Laminas\Mail\MessageFactory as MailMessageFactory;
-use Lminas\Mime\MessageFactory as MimeMessageFactory;
+use Laminas\Mime\MessageFactory as MimeMessageFactory;
 
 class Message implements \Magento\Framework\Mail\MailMessageInterface {
 
