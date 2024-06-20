@@ -64,9 +64,15 @@ class Webhook extends \Magento\Framework\App\Action\Action implements CsrfAwareA
                 $charge = $openpay->charges->get($json->transaction->id);
             }
 
-            $this->logger->debug('#webhook', array('trx_id' => $json->transaction->id, 'status' => $charge->status));        
+            $this->logger->debug('#webhook', array('trx_id' => $json->transaction->id, 'status' => $charge->status));
+            
+            $this->logger->debug("#Webhook.openpay_stores json_input - " . json_encode($json));
+            if( (isset($json->type) && $json->type == "verification") || empty($json) || json_encode($json) == "{}"){
+                header('HTTP/1.1 200 OK');
+                return;
+            }
 
-            if (isset($json->type) && ($json->transaction->method == 'store' || $json->transaction->method == 'bank_account')) {
+            if ($json->transaction->method == 'store' || $json->transaction->method == 'bank_account') {
                 $order = $this->_objectManager->create('Magento\Sales\Model\Order');            
                 $order->loadByAttribute('ext_order_id', $charge->id);
 

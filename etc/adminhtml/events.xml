@@ -12,6 +12,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">    
     <event name="admin_system_config_changed_section_payment">
+        <observer name="openpaystores_observer_check_configcurrency" instance="Openpay\Stores\Observer\MerchantInfo"/>
         <observer name="openpaystores_observer_check_config" instance="Openpay\Stores\Observer\CreateWebhook"/>
     </event>
 </config>
