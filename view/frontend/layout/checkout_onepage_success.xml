@@ -14,8 +14,6 @@
     <body>
         <referenceContainer name="order.success.additional.info">
             <block class="Openpay\Stores\Block\Checkout\Success" name="onepage.success.openpay_stores" template="Openpay_Stores::checkout/success.phtml" cacheable="false"/>
-            <!-- <block class="Magento\Checkout\Block\Registration" name="checkout.registration" template="registration.phtml" cacheable="false"/> -->
         </referenceContainer>
-        <!-- <container name="order.success.additional.info" label="Order Success Additional Info"/> -->
     </body>
 </page>
