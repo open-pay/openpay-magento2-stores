@@ -7,7 +7,7 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0  Apache License Version 2.0
  */
 
-namespace Openpay\Stores\Block\Onepage;
+namespace Openpay\Stores\Block\Checkout;
 
 use Magento\Framework\View\Element\Template;
 
@@ -37,5 +37,9 @@ class Success extends Template
         $this->_orderConfig = $orderConfig;
         $this->_isScopePrivate = true;
         $this->httpContext = $httpContext;
+    }
+
+    public function getOrderId() {
+        return $this->_checkoutSession->getLastRealOrderId();
     }
 }
