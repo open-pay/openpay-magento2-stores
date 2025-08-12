@@ -4,9 +4,23 @@
  * See COPYING.txt for license details.
  */
 ?>
-<?php /** @var $block "\Openpay\Stores\Block\Checkout\Success */ ?>
-<div class="checkout-success">
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<style>
+    .checkout-success-openpay-stores {
+        margin: 20px 0;
+    }
+
+    .actions-toolbar {
+        margin-top: 20px;
+    }
+</style>
+<div class="checkout-success-openpay-stores">
+    
     <?php if ($block->getOrderId()): ?>
+        <?php if ($block->getCanViewOrder()) : ?>
+            <p><?php echo __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
+        <?php endif; ?>
+
         <?php if (isset($_SESSION['pdf_url'])): ?>
             <div style="width: 70%">
                 <h2 style="font-weight:600;">Localiza tu tienda más cercana dando click
@@ -16,4 +30,5 @@
             </div>  
         <?php endif; ?>  
     <?php endif; ?>
+
 </div>
