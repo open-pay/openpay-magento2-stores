@@ -10,13 +10,13 @@ require([
 
         // Mapeo de países a títulos
         var titlesByCountry = {
-            'MX': 'Pago seguro con Efectivo',
-            'PE': 'Pago en Agencias',
-            'CO': 'Pago seguro con Efectivo'
+            'MX': 'Pago seguro con efectivo',
+            'PE': 'Pago en agencias',
+            'CO': 'Pago seguro con efectivo'
         };
 
         // Si el país tiene un título definido, úsalo. Si no, deja el campo vacío o con un valor por defecto.
-        newTitle = titlesByCountry[countryValue] || 'Pago en efectivo';
+        newTitle = titlesByCountry[countryValue] || 'Pago seguro con efectivo';
         
         // Asignamos el nuevo valor al campo de texto
         titleField.val(newTitle);
