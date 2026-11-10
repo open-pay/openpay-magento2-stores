@@ -156,6 +156,7 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
         $this->templateIdentifier = null;
         $this->templateVars = null;
         $this->templateOptions = null;
+        $this->attachments = [];
         return $this;
     }
     protected function getTemplate()
@@ -168,6 +169,7 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
     {
         $template = $this->getTemplate();
         $content = $template->processTemplate();
+        $part = [];
         switch ($template->getType()) {
             case TemplateTypesInterface::TYPE_TEXT:
                 $part['type'] = MimeInterface::TYPE_TEXT;
@@ -182,8 +184,31 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
                     new Phrase('Unknown template type')
                 );
         }
-        $mimePart = $this->mimePartInterfaceFactory->create(['content' => $content]);
-        $parts = count($this->attachments) ? array_merge([$mimePart], $this->attachments) : [$mimePart];
+
+        $part['content'] = $content;
+        $part['charset'] = 'utf-8';
+        $mimePart = $this->mimePartInterfaceFactory->create($part);
+
+        if (count($this->attachments)) {
+            $bodyPart = new \Laminas\Mime\Part($content);
+            $bodyPart->type = $part['type'];
+            $bodyPart->charset = 'utf-8';
+            $bodyPart->encoding = \Laminas\Mime\Mime::ENCODING_QUOTEDPRINTABLE;
+
+            $mimeMessage = new \Laminas\Mime\Message();
+            $mimeMessage->setParts(array_merge([$bodyPart], $this->attachments));
+
+            $finalPart = $this->mimePartInterfaceFactory->create([
+                'content' => $mimeMessage->generateMessage(),
+                'type' => \Laminas\Mime\Mime::MULTIPART_MIXED . '; boundary="' . $mimeMessage->getMime()->boundary() . '"',
+                'encoding' => \Laminas\Mime\Mime::ENCODING_8BIT
+            ]);
+
+            $parts = [$finalPart];
+        } else {
+            $parts = [$mimePart];
+        }
+
         $this->messageData['body'] = $this->mimeMessageInterfaceFactory->create(
             ['parts' => $parts]
         );
