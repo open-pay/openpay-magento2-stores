@@ -21,6 +21,8 @@ use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Phrase;
 use Laminas\Mime\Mime;
 use Laminas\Mime\PartFactory;
+use Laminas\Mime\Message;
+use Laminas\Mime\Part;
 
 class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
 {
@@ -187,25 +189,25 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
 
         $part['content'] = $content;
         $part['charset'] = 'utf-8';
-        $mimePart = $this->mimePartInterfaceFactory->create($part);
 
         if (count($this->attachments)) {
-            $bodyPart = new \Laminas\Mime\Part($content);
+            $bodyPart = new Part($content);
             $bodyPart->type = $part['type'];
             $bodyPart->charset = 'utf-8';
-            $bodyPart->encoding = \Laminas\Mime\Mime::ENCODING_QUOTEDPRINTABLE;
+            $bodyPart->encoding = Mime::ENCODING_QUOTEDPRINTABLE;
 
-            $mimeMessage = new \Laminas\Mime\Message();
+            $mimeMessage = new Message();
             $mimeMessage->setParts(array_merge([$bodyPart], $this->attachments));
 
             $finalPart = $this->mimePartInterfaceFactory->create([
                 'content' => $mimeMessage->generateMessage(),
-                'type' => \Laminas\Mime\Mime::MULTIPART_MIXED . '; boundary="' . $mimeMessage->getMime()->boundary() . '"',
-                'encoding' => \Laminas\Mime\Mime::ENCODING_8BIT
+                'type' => Mime::MULTIPART_MIXED . '; boundary="' . $mimeMessage->getMime()->boundary() . '"',
+                'encoding' => Mime::ENCODING_8BIT
             ]);
 
             $parts = [$finalPart];
         } else {
+            $mimePart = $this->mimePartInterfaceFactory->create($part);
             $parts = [$mimePart];
         }
 
