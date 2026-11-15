@@ -13,6 +13,7 @@ use Magento\Customer\Model\Customer;
 use Magento\Customer\Model\Session as CustomerSession;
 
 use Openpay\Data\Openpay;
+use Openpay\Data\OpenpayApiConnectionError;
 use Openpay\Stores\Model\Utils\Currency;
 use Magento\Framework\App\Request\Http;
 
@@ -433,7 +434,7 @@ class Payment extends AbstractMethod
 
 
     /**
-     * @param Exception $e
+     * @param \Exception $e
      * @return string
      */
     public function error($e) {
@@ -447,8 +448,10 @@ class Payment extends AbstractMethod
                 break;
             case '6001':
                 $msg = 'El webhook ya existe, has caso omiso de este mensaje.';
+                break;
             case '6002':
                 $msg = 'El webhook no pudo ser verificado, revisa la URL.';
+                break;
             default: /* Demás errores 400 */
                 $msg = 'La petición no pudo ser procesada.';
                 break;
@@ -517,7 +520,7 @@ class Payment extends AbstractMethod
         try {
             $webhook = $openpay->webhooks->add($webhook_data);
             return $webhook;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $this->error($e);
         }
     }
